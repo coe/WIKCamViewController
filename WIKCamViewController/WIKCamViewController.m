@@ -25,7 +25,9 @@
     [super viewDidAppear:animated];
     
     //TODO:カメラをフロントにする
-    self->isUsingFrontFacingCamera = YES;
+    if(!self->isUsingFrontFacingCamera){
+        [self switchCameras:nil];
+    }
     
     //認識開始する
     UISwitch* swit = [[UISwitch alloc] initWithFrame:CGRectZero];
@@ -38,7 +40,6 @@
 
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection
 {
-    NSLog(@"%s%d",__FUNCTION__,__LINE__);
     // got an image
     CVPixelBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
     CFDictionaryRef attachments = CMCopyDictionaryOfAttachments(kCFAllocatorDefault, sampleBuffer, kCMAttachmentMode_ShouldPropagate);
