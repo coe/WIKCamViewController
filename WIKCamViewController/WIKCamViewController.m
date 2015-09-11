@@ -141,6 +141,17 @@
     //	});
 }
 
+- (void)teardownAVCapture
+{
+//    [videoDataOutput release];
+//    if (videoDataOutputQueue)
+//        dispatch_release(videoDataOutputQueue);
+//    [stillImageOutput removeObserver:self forKeyPath:@"isCapturingStillImage"];
+//    [stillImageOutput release];
+    [previewLayer removeFromSuperlayer];
+//    [previewLayer release];
+}
+
 #pragma mark -
 #pragma mark UIViewController
 - (BOOL)shouldAutorotate
