@@ -14,8 +14,31 @@
 
 @implementation WIKCamViewController
 
+- (void)viewDidLoad
+{
+    NSLog(@"%s%d",__FUNCTION__,__LINE__);
+    [super viewDidLoad];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    NSLog(@"%s%d",__FUNCTION__,__LINE__);
+    [super viewDidAppear:animated];
+    
+    //TODO:カメラをフロントにする
+    self->isUsingFrontFacingCamera = YES;
+    
+    //認識開始する
+    UISwitch* swit = [[UISwitch alloc] initWithFrame:CGRectZero];
+    swit.on = YES;
+    [self toggleFaceDetection:swit];
+    
+}
+
+
+
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection
 {
+    NSLog(@"%s%d",__FUNCTION__,__LINE__);
     // got an image
     CVPixelBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
     CFDictionaryRef attachments = CMCopyDictionaryOfAttachments(kCFAllocatorDefault, sampleBuffer, kCMAttachmentMode_ShouldPropagate);
@@ -73,41 +96,42 @@
     
     //	imageOptions = [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:exifOrientation] forKey:CIDetectorImageOrientation];
     NSArray *features = [faceDetector featuresInImage:ciImage options:imageOptions];
-//    [ciImage release];
-    
-    // get the clean aperture
-    // the clean aperture is a rectangle that defines the portion of the encoded pixel dimensions
-    // that represents image data valid for faceDetectordisplay.
-    //	CMFormatDescriptionRef fdesc = CMSampleBufferGetFormatDescription(sampleBuffer);
-    //	CGRect clap = CMVideoFormatDescriptionGetCleanAperture(fdesc, false /*originIsTopLeft == false*/);
-    
-    for(CIFaceFeature* face in features){
-        // faceを使って何かする（矩形を描画する、など）
-        if ([face leftEyeClosed] || [face rightEyeClosed]) {
-            NSLog(@"eye closed");
-            //[self takePicture:nil];
-            _isClose = YES;
-            return;
-        }
-        
-    }
-    
-    //改めて全ての要素チェックして、全員の目が開いていたらシャッター
-    if(_isClose){
-        for(CIFaceFeature* face in features){
-            // faceを使って何かする（矩形を描画する、など）
-            if ([face leftEyeClosed] || [face rightEyeClosed]) {
-                NSLog(@"eye closed");
-                //[self takePicture:nil];
-                _isClose = YES;
-                return;
-            }
-            
-        }
-        //returnしていなかったら、シャッターを押す
-        [self takePicture:nil];
-        _isClose = NO;
-    }
+    [_delegate WIKCamDelegateCaptureOutput:features];
+////    [ciImage release];
+//
+//    // get the clean aperture
+//    // the clean aperture is a rectangle that defines the portion of the encoded pixel dimensions
+//    // that represents image data valid for faceDetectordisplay.
+//    //	CMFormatDescriptionRef fdesc = CMSampleBufferGetFormatDescription(sampleBuffer);
+//    //	CGRect clap = CMVideoFormatDescriptionGetCleanAperture(fdesc, false /*originIsTopLeft == false*/);
+//    
+//    for(CIFaceFeature* face in features){
+//        // faceを使って何かする（矩形を描画する、など）
+//        if ([face leftEyeClosed] || [face rightEyeClosed]) {
+//            NSLog(@"eye closed");
+//            //[self takePicture:nil];
+//            _isClose = YES;
+//            return;
+//        }
+//        
+//    }
+//    
+//    //改めて全ての要素チェックして、全員の目が開いていたらシャッター
+//    if(_isClose){
+//        for(CIFaceFeature* face in features){
+//            // faceを使って何かする（矩形を描画する、など）
+//            if ([face leftEyeClosed] || [face rightEyeClosed]) {
+//                NSLog(@"eye closed");
+//                //[self takePicture:nil];
+//                _isClose = YES;
+//                return;
+//            }
+//            
+//        }
+//        //returnしていなかったら、シャッターを押す
+//        [self takePicture:nil];
+//        _isClose = NO;
+//    }
     
     
     

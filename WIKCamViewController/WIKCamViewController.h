@@ -11,6 +11,11 @@
 
 @protocol WIKCamDelegate <NSObject>
 
+/*
+ @param features CIFaceFeature Array
+ */
+-(void)WIKCamDelegateCaptureOutput:(NSArray*)features;
+
 @end
 
 @interface WIKCamViewController : SquareCamViewController

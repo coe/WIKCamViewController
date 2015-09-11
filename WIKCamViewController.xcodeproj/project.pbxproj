@@ -11,6 +11,7 @@
 		CE7F51781B9992B3006A8A9E /* WIKCamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7F51771B9992B3006A8A9E /* WIKCamViewController.m */; };
 		CE7F517E1B9992B3006A8A9E /* libWIKCamViewController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7F51721B9992B3006A8A9E /* libWIKCamViewController.a */; };
 		CE7F51BC1B9997F6006A8A9E /* SquareCamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7F51BB1B9997F6006A8A9E /* SquareCamViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CEFBDEAD1BA25F5600C61831 /* SquareCamViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE7F51BA1B9997F6006A8A9E /* SquareCamViewController.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,6 +31,7 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				CEFBDEAD1BA25F5600C61831 /* SquareCamViewController.h in CopyFiles */,
 				CE7F51761B9992B3006A8A9E /* WIKCamViewController.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -302,18 +304,24 @@
 		CE7F51871B9992B3006A8A9E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 armv7 armv7s x86_64 i386";
 			};
 			name = Debug;
 		};
 		CE7F51881B9992B3006A8A9E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 armv7 armv7s x86_64 i386";
 			};
 			name = Release;
 		};
