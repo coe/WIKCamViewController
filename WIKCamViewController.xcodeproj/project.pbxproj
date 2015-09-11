@@ -10,6 +10,7 @@
 		CE7F51761B9992B3006A8A9E /* WIKCamViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE7F51751B9992B3006A8A9E /* WIKCamViewController.h */; };
 		CE7F51781B9992B3006A8A9E /* WIKCamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7F51771B9992B3006A8A9E /* WIKCamViewController.m */; };
 		CE7F517E1B9992B3006A8A9E /* libWIKCamViewController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7F51721B9992B3006A8A9E /* libWIKCamViewController.a */; };
+		CE7F51BC1B9997F6006A8A9E /* SquareCamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7F51BB1B9997F6006A8A9E /* SquareCamViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +42,8 @@
 		CE7F51771B9992B3006A8A9E /* WIKCamViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WIKCamViewController.m; sourceTree = "<group>"; };
 		CE7F517D1B9992B3006A8A9E /* WIKCamViewControllerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WIKCamViewControllerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE7F51831B9992B3006A8A9E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CE7F51BA1B9997F6006A8A9E /* SquareCamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SquareCamViewController.h; sourceTree = "<group>"; };
+		CE7F51BB1B9997F6006A8A9E /* SquareCamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SquareCamViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +86,8 @@
 		CE7F51741B9992B3006A8A9E /* WIKCamViewController */ = {
 			isa = PBXGroup;
 			children = (
+				CE7F51BA1B9997F6006A8A9E /* SquareCamViewController.h */,
+				CE7F51BB1B9997F6006A8A9E /* SquareCamViewController.m */,
 				CE7F51751B9992B3006A8A9E /* WIKCamViewController.h */,
 				CE7F51771B9992B3006A8A9E /* WIKCamViewController.m */,
 			);
@@ -194,6 +199,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE7F51781B9992B3006A8A9E /* WIKCamViewController.m in Sources */,
+				CE7F51BC1B9997F6006A8A9E /* SquareCamViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,6 +368,7 @@
 				CE7F51881B9992B3006A8A9E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CE7F51891B9992B3006A8A9E /* Build configuration list for PBXNativeTarget "WIKCamViewControllerTests" */ = {
 			isa = XCConfigurationList;
@@ -370,6 +377,7 @@
 				CE7F518B1B9992B3006A8A9E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

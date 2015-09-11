@@ -7,7 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SquareCamViewController.h"
 
-@interface WIKCamViewController : NSObject
+@protocol WIKCamDelegate <NSObject>
+
+@end
+
+@interface WIKCamViewController : SquareCamViewController
+
+@property(weak) id<WIKCamDelegate> delegate;
 
 @end
