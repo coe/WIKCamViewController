@@ -94,7 +94,7 @@ const float kPoint = 0.05f;
             
         }
         
-        if(!face.rightEyeClosed && self.leftProgressProgress >= kCloseOmomi)
+        if(!face.rightEyeClosed && self.leftProgressProgress >= kCloseOmomi && self.rightProgressProgress == 0.0f)
         {
             self.leftProgressProgress = 0.0f;
             self.rightProgressProgress = 0.0f;
@@ -102,7 +102,7 @@ const float kPoint = 0.05f;
             break;
             
         }
-        else if(!face.leftEyeClosed && self.rightProgressProgress >= kCloseOmomi) {
+        else if(!face.leftEyeClosed && self.rightProgressProgress >= kCloseOmomi && self.leftProgressProgress == 0.0f) {
             self.leftProgressProgress = 0.0f;
             self.rightProgressProgress = 0.0f;
             [_winkDelegate WinkLeftClose];
