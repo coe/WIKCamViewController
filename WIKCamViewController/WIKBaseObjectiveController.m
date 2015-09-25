@@ -14,7 +14,7 @@ const float kCloseOmomi = 0.1f;
 const float kPoint = 0.05f;
 
 @interface WIKBaseObjectiveController() {
-//    dispatch_semaphore_t semaphore;
+    //    dispatch_semaphore_t semaphore;
 }
 
 @property(atomic) BOOL isWinkFlameIn;
@@ -29,13 +29,13 @@ const float kPoint = 0.05f;
 @implementation WIKBaseObjectiveController
 
 -(void)WIKCamDelegateCaptureOutput:(NSArray*)features {
-
-//    NSLog(@"WIKCamDelegateCaptureOutput leftProgressProgress %f",self.leftProgressProgress);
-//    if (!semaphore) {
-//        semaphore = dispatch_semaphore_create(1);
-//    }
-//    
-//    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    
+    //    NSLog(@"WIKCamDelegateCaptureOutput leftProgressProgress %f",self.leftProgressProgress);
+    //    if (!semaphore) {
+    //        semaphore = dispatch_semaphore_create(1);
+    //    }
+    //
+    //    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
     
     if (_isWinkFlameIn) {
         _isWinkFlameIn = NO;
@@ -45,8 +45,8 @@ const float kPoint = 0.05f;
     
     for (CIFaceFeature* face in features) {
         
-//        NSLog(@"WIKCamDelegateCaptureOutput leftProgressProgress %f",self.leftProgressProgress);
-//        NSLog(@"WIKCamDelegateCaptureOutput rightProgressProgress %f",self.rightProgressProgress);
+        NSLog(@"WIKCamDelegateCaptureOutput leftProgressProgress %f",self.leftProgressProgress);
+        NSLog(@"WIKCamDelegateCaptureOutput rightProgressProgress %f",self.rightProgressProgress);
         if(!_isWinkFlameIn) {
             _isWinkFlameIn = true;
             [_winkDelegate WinkFlameIn];
@@ -55,8 +55,8 @@ const float kPoint = 0.05f;
         
         if (face.hasSmile) {
             //                println("hasSmile")
-//            self.leftProgressProgress = 0.0f;
-//            self.rightProgressProgress = 0.0f;
+            //            self.leftProgressProgress = 0.0f;
+            //            self.rightProgressProgress = 0.0f;
             [_winkDelegate WinkSmile];
             break;
         }
@@ -65,8 +65,8 @@ const float kPoint = 0.05f;
             if (self.leftProgressProgress >= kLongCloseOmomi && self.rightProgressProgress >= kLongCloseOmomi) {
                 NSLog(@"目長く閉じる検出leftProgressProgress %f",self.leftProgressProgress);
                 NSLog(@"目長く閉じる検出rightProgressProgress %f",self.rightProgressProgress);
-
-//                self.closeFlg = true;
+                
+                //                self.closeFlg = true;
                 self.leftProgressProgress = 0.0f;
                 self.rightProgressProgress = 0.0f;
                 [_winkDelegate WinkLongClose];
@@ -90,6 +90,25 @@ const float kPoint = 0.05f;
                 [_winkDelegate WinkClose];
                 break;
             }
+
+            
+        }
+        
+        if(!face.rightEyeClosed && self.leftProgressProgress >= kCloseOmomi)
+        {
+            self.leftProgressProgress = 0.0f;
+            self.rightProgressProgress = 0.0f;
+            [_winkDelegate WinkRightClose];
+            break;
+            
+        }
+        else if(!face.leftEyeClosed && self.rightProgressProgress >= kCloseOmomi) {
+            self.leftProgressProgress = 0.0f;
+            self.rightProgressProgress = 0.0f;
+            [_winkDelegate WinkLeftClose];
+            break;
+            
+            
         }
         
         
@@ -103,33 +122,24 @@ const float kPoint = 0.05f;
         
         if (face.leftEyeClosed)  {
             self.leftProgressProgress += kPoint;
-            if(!face.rightEyeClosed && self.leftProgressProgress >= kCloseOmomi) {
-                self.leftProgressProgress = 0.0f;
-                self.rightProgressProgress = 0.0f;
-                [_winkDelegate WinkRightClose];
-            }
+            
         }
         
         if (face.rightEyeClosed)  {
             self.rightProgressProgress += kPoint;
-            if(!face.leftEyeClosed && self.rightProgressProgress >= kCloseOmomi) {
-                self.leftProgressProgress = 0.0f;
-                self.rightProgressProgress = 0.0f;
-                [_winkDelegate WinkLeftClose];
-
-            }
+            
         }
-
-
+        
+        
         
         break;
         //            winkDelegate?.WinkLeftCloseWithPoint!(self.leftProgressProgress)
         //            winkDelegate?.WinkRightCloseWithPoint!(self.rightProgressProgress)
         
     }
-//    dispatch_semaphore_signal(semaphore);
-
-
+    //    dispatch_semaphore_signal(semaphore);
+    
+    
 }
 
 @end
