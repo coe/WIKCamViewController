@@ -61,14 +61,25 @@ const float kPoint = 0.05f;
             break;
         }
         
+        
+        
+        if (face.leftEyeClosed)  {
+            self.leftProgressProgress += kPoint;
+            
+        }
+        
+        if (face.rightEyeClosed)  {
+            self.rightProgressProgress += kPoint;
+            
+        }
+        
         if (face.leftEyeClosed && face.rightEyeClosed) {
             if (self.leftProgressProgress >= kLongCloseOmomi && self.rightProgressProgress >= kLongCloseOmomi) {
                 NSLog(@"目長く閉じる検出leftProgressProgress %f",self.leftProgressProgress);
                 NSLog(@"目長く閉じる検出rightProgressProgress %f",self.rightProgressProgress);
                 
                 //                self.closeFlg = true;
-                self.leftProgressProgress = 0.0f;
-                self.rightProgressProgress = 0.0f;
+                [self reset];
                 [_winkDelegate WinkLongClose];
                 break;
             } else {
@@ -85,8 +96,7 @@ const float kPoint = 0.05f;
                 //どっちも閉じていない場合
                 NSLog(@"目短く閉じる検出leftProgressProgress %f",self.leftProgressProgress);
                 NSLog(@"目短く閉じる検出rightProgressProgress %f",self.rightProgressProgress);//                self.closeFlg = true
-                self.leftProgressProgress = 0.0f;
-                self.rightProgressProgress = 0.0f;
+                [self reset];
                 [_winkDelegate WinkClose];
                 break;
             }
@@ -96,17 +106,20 @@ const float kPoint = 0.05f;
         
         if(!face.rightEyeClosed && self.leftProgressProgress >= kCloseOmomi && self.rightProgressProgress == 0.0f)
         {
-            self.leftProgressProgress = 0.0f;
-            self.rightProgressProgress = 0.0f;
-            [_winkDelegate WinkRightClose];
-            break;
+            if ([_winkDelegate respondsToSelector:@selector(WinkRightClose)]) {
+                [_winkDelegate WinkRightClose];
+                break;
+            }
+            
             
         }
         else if(!face.leftEyeClosed && self.rightProgressProgress >= kCloseOmomi && self.leftProgressProgress == 0.0f) {
-            self.leftProgressProgress = 0.0f;
-            self.rightProgressProgress = 0.0f;
-            [_winkDelegate WinkLeftClose];
-            break;
+            //メソッドが存在する場合のみ
+            if ([_winkDelegate respondsToSelector:@selector(WinkLeftClose)]) {
+                [_winkDelegate WinkLeftClose];
+                break;
+            }
+            
             
             
         }
@@ -114,21 +127,10 @@ const float kPoint = 0.05f;
         
         if (!face.leftEyeClosed && !face.rightEyeClosed) {
             //両目が開いているのでリセット
-            self.leftProgressProgress = 0.0f;
-            self.rightProgressProgress = 0.0f;
+            [self reset];
             break;
         }
-        
-        
-        if (face.leftEyeClosed)  {
-            self.leftProgressProgress += kPoint;
-            
-        }
-        
-        if (face.rightEyeClosed)  {
-            self.rightProgressProgress += kPoint;
-            
-        }
+
         
         
         
@@ -140,6 +142,11 @@ const float kPoint = 0.05f;
     //    dispatch_semaphore_signal(semaphore);
     
     
+}
+
+-(void)reset {
+    self.leftProgressProgress = 0.0f;
+    self.rightProgressProgress = 0.0f;
 }
 
 @end

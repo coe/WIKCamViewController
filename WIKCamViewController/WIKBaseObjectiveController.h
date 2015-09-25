@@ -26,6 +26,8 @@
 
 @interface WIKBaseObjectiveController : WIKCamViewController<WIKCamDelegate>
 
+-(void)reset;
+
 @property(weak)id<WinkObjectiveDelegate> winkDelegate;
 
 @end
