@@ -96,50 +96,9 @@
                                     CIDetectorImageOrientation:[NSNumber numberWithInt:exifOrientation]
                                     };
     
-    //	imageOptions = [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:exifOrientation] forKey:CIDetectorImageOrientation];
     NSArray *features = [faceDetector featuresInImage:ciImage options:imageOptions];
     [_delegate WIKCamDelegateCaptureOutput:features];
-////    [ciImage release];
-//
-//    // get the clean aperture
-//    // the clean aperture is a rectangle that defines the portion of the encoded pixel dimensions
-//    // that represents image data valid for faceDetectordisplay.
-//    //	CMFormatDescriptionRef fdesc = CMSampleBufferGetFormatDescription(sampleBuffer);
-//    //	CGRect clap = CMVideoFormatDescriptionGetCleanAperture(fdesc, false /*originIsTopLeft == false*/);
-//    
-//    for(CIFaceFeature* face in features){
-//        // faceを使って何かする（矩形を描画する、など）
-//        if ([face leftEyeClosed] || [face rightEyeClosed]) {
-//            NSLog(@"eye closed");
-//            //[self takePicture:nil];
-//            _isClose = YES;
-//            return;
-//        }
-//        
-//    }
-//    
-//    //改めて全ての要素チェックして、全員の目が開いていたらシャッター
-//    if(_isClose){
-//        for(CIFaceFeature* face in features){
-//            // faceを使って何かする（矩形を描画する、など）
-//            if ([face leftEyeClosed] || [face rightEyeClosed]) {
-//                NSLog(@"eye closed");
-//                //[self takePicture:nil];
-//                _isClose = YES;
-//                return;
-//            }
-//            
-//        }
-//        //returnしていなかったら、シャッターを押す
-//        [self takePicture:nil];
-//        _isClose = NO;
-//    }
-    
-    
-    
-    //	dispatch_async(dispatch_get_main_queue(), ^(void) {
-    //		[self drawFaceBoxesForFeatures:features forVideoBox:clap orientation:curDeviceOrientation];
-    //	});
+
 }
 
 - (void)teardownAVCapture
@@ -226,8 +185,8 @@
             NSError *deviceerror = nil;
             if ([d lockForConfiguration:&deviceerror]) {
                 // フレームレートを設定
-                d.activeVideoMaxFrameDuration = CMTimeMake(1, 2);
-                d.activeVideoMinFrameDuration  = CMTimeMake(1, 2);
+                d.activeVideoMaxFrameDuration = CMTimeMake(1, minFrameRate);
+                d.activeVideoMinFrameDuration  = CMTimeMake(1, minFrameRate);
                 
                 //デバイスロックを解除
                 [d unlockForConfiguration];
