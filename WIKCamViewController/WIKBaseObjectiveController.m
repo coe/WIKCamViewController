@@ -30,7 +30,7 @@ const float kPoint = 0.05f;
 
 -(void)WIKCamDelegateCaptureOutput:(NSArray*)features {
 
-    NSLog(@"WIKCamDelegateCaptureOutput leftProgressProgress %f",self.leftProgressProgress);
+//    NSLog(@"WIKCamDelegateCaptureOutput leftProgressProgress %f",self.leftProgressProgress);
 //    if (!semaphore) {
 //        semaphore = dispatch_semaphore_create(1);
 //    }
@@ -50,6 +50,15 @@ const float kPoint = 0.05f;
         if(!_isWinkFlameIn) {
             _isWinkFlameIn = true;
             [_winkDelegate WinkFlameIn];
+        }
+        
+        
+        if (face.hasSmile) {
+            //                println("hasSmile")
+//            self.leftProgressProgress = 0.0f;
+//            self.rightProgressProgress = 0.0f;
+            [_winkDelegate WinkSmile];
+            break;
         }
         
         if (face.leftEyeClosed && face.rightEyeClosed) {
@@ -94,36 +103,24 @@ const float kPoint = 0.05f;
         
         if (face.leftEyeClosed)  {
             self.leftProgressProgress += kPoint;
-            //                if self.leftProgressProgress >= self.kOmomi {
-            //                    self.leftProgressProgress = 0
-            //                    self.rightProgressProgress = 0
-            //
-            //                    winkDelegate?.WinkRightClose!()
-            //
-            //                    return
-            //                }
+            if(!face.rightEyeClosed && self.leftProgressProgress >= kCloseOmomi) {
+                self.leftProgressProgress = 0.0f;
+                self.rightProgressProgress = 0.0f;
+                [_winkDelegate WinkRightClose];
+            }
         }
-        //            else {
-        //                self.leftProgressProgress = 0
-        //            }
         
         if (face.rightEyeClosed)  {
             self.rightProgressProgress += kPoint;
-            //                if self.rightProgressProgress >= self.kOmomi {
-            //                    self.rightProgressProgress = 0
-            //                    self.leftProgressProgress = 0
-            //                    winkDelegate?.WinkLeftClose!()
-            //                    return
-            //                }
+            if(!face.leftEyeClosed && self.rightProgressProgress >= kCloseOmomi) {
+                self.leftProgressProgress = 0.0f;
+                self.rightProgressProgress = 0.0f;
+                [_winkDelegate WinkLeftClose];
+
+            }
         }
-        //            else {
-        //                self.rightProgressProgress = 0
-        //            }
-        
-        if (face.hasSmile) {
-            //                println("hasSmile")
-            //                winkDelegate?.WinkSmile!()
-        }
+
+
         
         break;
         //            winkDelegate?.WinkLeftCloseWithPoint!(self.leftProgressProgress)
