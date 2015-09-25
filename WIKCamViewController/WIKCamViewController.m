@@ -121,83 +121,83 @@
 }
 
 // use front/back camera
-- (IBAction)switchCameras:(id)sender
-{
-    AVCaptureDevicePosition desiredPosition;
-    if (isUsingFrontFacingCamera)
-        desiredPosition = AVCaptureDevicePositionBack;
-    else
-        desiredPosition = AVCaptureDevicePositionFront;
-    
-    for (AVCaptureDevice *d in [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo]) {
-        if ([d position] == desiredPosition) {
-            [[previewLayer session] beginConfiguration];
-            AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:d error:nil];
-            for (AVCaptureInput *oldInput in [[previewLayer session] inputs]) {
-                [[previewLayer session] removeInput:oldInput];
-            }
-            [[previewLayer session] addInput:input];
-            
-            
-            // カメラのフォーマット一覧を取得
-            NSArray *formats = d.formats;
-            
-            // カメラのフォーマット一覧から、最高fpsかつ最大サイズのフォーマットを検索
-            // （420f,420vにはこだわらない）
-            Float64 maxFrameRate = .0f;
-            Float64 minFrameRate = 3600.0f;
-            
-            int32_t maxWidth = 0;
-            AVCaptureDeviceFormat *targetFormat = nil;
-            for (AVCaptureDeviceFormat *format in formats) {
-                // フォーマットのFPSを取得
-                AVFrameRateRange *frameRateRange = format.videoSupportedFrameRateRanges[0];
-                Float64 frameRate = frameRateRange.maxFrameRate; // フレームレート
-                Float64 minRate = frameRateRange.minFrameRate; // フレームレート
-                
-                // フォーマットのフレームサイズ（幅）を取得
-                CMFormatDescriptionRef desc = format.formatDescription;
-                CMVideoDimensions dimensions = CMVideoFormatDescriptionGetDimensions(desc);
-                int32_t width = dimensions.width;                // フレームサイズ（幅）
-                
-                // フレームレートとサイズの両方が大きい場合はフォーマットを保持
-                NSLog(@"frameRate %f",frameRate);
-                if (frameRate >= maxFrameRate && width >= maxWidth) {
-                    targetFormat = format;
-                    
-                    // 条件の更新
-                    maxFrameRate = frameRate;
-                    maxWidth = width;
-                }
-                
-                NSLog(@"minRate %f",minRate);
-                if (minRate <= minFrameRate) {
-                    
-                    // 条件の更新
-                    minFrameRate = minRate;
-                }
-            }
-            //    if (!targetFormat) return NO;
-            
-            // デバイスをロック
-            NSLog(@"maxFrameRate %f",maxFrameRate);
-            
-            NSError *deviceerror = nil;
-            if ([d lockForConfiguration:&deviceerror]) {
-                // フレームレートを設定
-                d.activeVideoMaxFrameDuration = CMTimeMake(1, minFrameRate);
-                d.activeVideoMinFrameDuration  = CMTimeMake(1, minFrameRate);
-                
-                //デバイスロックを解除
-                [d unlockForConfiguration];
-            }
-            
-            [[previewLayer session] commitConfiguration];
-            break;
-        }
-    }
-    isUsingFrontFacingCamera = !isUsingFrontFacingCamera;
-}
+//- (IBAction)switchCameras:(id)sender
+//{
+//    AVCaptureDevicePosition desiredPosition;
+//    if (isUsingFrontFacingCamera)
+//        desiredPosition = AVCaptureDevicePositionBack;
+//    else
+//        desiredPosition = AVCaptureDevicePositionFront;
+//    
+//    for (AVCaptureDevice *d in [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo]) {
+//        if ([d position] == desiredPosition) {
+//            [[previewLayer session] beginConfiguration];
+//            AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:d error:nil];
+//            for (AVCaptureInput *oldInput in [[previewLayer session] inputs]) {
+//                [[previewLayer session] removeInput:oldInput];
+//            }
+//            [[previewLayer session] addInput:input];
+//            
+//            
+//            // カメラのフォーマット一覧を取得
+//            NSArray *formats = d.formats;
+//            
+//            // カメラのフォーマット一覧から、最高fpsかつ最大サイズのフォーマットを検索
+//            // （420f,420vにはこだわらない）
+//            Float64 maxFrameRate = .0f;
+//            Float64 minFrameRate = 3600.0f;
+//            
+//            int32_t maxWidth = 0;
+//            AVCaptureDeviceFormat *targetFormat = nil;
+//            for (AVCaptureDeviceFormat *format in formats) {
+//                // フォーマットのFPSを取得
+//                AVFrameRateRange *frameRateRange = format.videoSupportedFrameRateRanges[0];
+//                Float64 frameRate = frameRateRange.maxFrameRate; // フレームレート
+//                Float64 minRate = frameRateRange.minFrameRate; // フレームレート
+//                
+//                // フォーマットのフレームサイズ（幅）を取得
+//                CMFormatDescriptionRef desc = format.formatDescription;
+//                CMVideoDimensions dimensions = CMVideoFormatDescriptionGetDimensions(desc);
+//                int32_t width = dimensions.width;                // フレームサイズ（幅）
+//                
+//                // フレームレートとサイズの両方が大きい場合はフォーマットを保持
+//                NSLog(@"frameRate %f",frameRate);
+//                if (frameRate >= maxFrameRate && width >= maxWidth) {
+//                    targetFormat = format;
+//                    
+//                    // 条件の更新
+//                    maxFrameRate = frameRate;
+//                    maxWidth = width;
+//                }
+//                
+//                NSLog(@"minRate %f",minRate);
+//                if (minRate <= minFrameRate) {
+//                    
+//                    // 条件の更新
+//                    minFrameRate = minRate;
+//                }
+//            }
+//            //    if (!targetFormat) return NO;
+//            
+//            // デバイスをロック
+//            NSLog(@"maxFrameRate %f",maxFrameRate);
+//            
+//            NSError *deviceerror = nil;
+//            if ([d lockForConfiguration:&deviceerror]) {
+//                // フレームレートを設定
+//                d.activeVideoMaxFrameDuration = CMTimeMake(1, minFrameRate);
+//                d.activeVideoMinFrameDuration  = CMTimeMake(1, minFrameRate);
+//                
+//                //デバイスロックを解除
+//                [d unlockForConfiguration];
+//            }
+//            
+//            [[previewLayer session] commitConfiguration];
+//            break;
+//        }
+//    }
+//    isUsingFrontFacingCamera = !isUsingFrontFacingCamera;
+//}
 
 
 @end

@@ -13,13 +13,20 @@ const float kLongCloseOmomi = 0.2f;
 const float kCloseOmomi = 0.1f;
 const float kPoint = 0.05f;
 
+const NSTimeInterval kLongCloseSecond = 2.0f;
+const NSTimeInterval kCloseSecond = 0.3f;
+const NSTimeInterval kWinkSecond = 0.1f;
+
 @interface WIKBaseObjectiveController() {
     //    dispatch_semaphore_t semaphore;
 }
 
 @property(atomic) BOOL isWinkFlameIn;
-@property(atomic) float leftProgressProgress;
-@property(atomic) float rightProgressProgress;
+//@property(atomic) float leftProgressProgress;
+//@property(atomic) float rightProgressProgress;
+@property(atomic) NSDate* leftClosingDate;
+@property(atomic) NSDate* rightClosingDate;
+
 @property(atomic) BOOL isDone;
 
 
@@ -30,13 +37,6 @@ const float kPoint = 0.05f;
 
 -(void)WIKCamDelegateCaptureOutput:(NSArray*)features {
     
-    //    NSLog(@"WIKCamDelegateCaptureOutput leftProgressProgress %f",self.leftProgressProgress);
-    //    if (!semaphore) {
-    //        semaphore = dispatch_semaphore_create(1);
-    //    }
-    //
-    //    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-    
     if (_isWinkFlameIn) {
         _isWinkFlameIn = NO;
         [_winkDelegate WinkFlameOut];
@@ -45,57 +45,50 @@ const float kPoint = 0.05f;
     
     for (CIFaceFeature* face in features) {
         
-        NSLog(@"WIKCamDelegateCaptureOutput leftProgressProgress %f",self.leftProgressProgress);
-        NSLog(@"WIKCamDelegateCaptureOutput rightProgressProgress %f",self.rightProgressProgress);
+        NSLog(@"%s%d",__func__,__LINE__);
+        
         if(!_isWinkFlameIn) {
             _isWinkFlameIn = true;
             [_winkDelegate WinkFlameIn];
         }
         
-        
+        //笑ったら即時実行
         if (face.hasSmile) {
-            //                println("hasSmile")
-            //            self.leftProgressProgress = 0.0f;
-            //            self.rightProgressProgress = 0.0f;
             [_winkDelegate WinkSmile];
             break;
         }
         
-        
-        
-        if (face.leftEyeClosed)  {
-            self.leftProgressProgress += kPoint;
-            
+        //目を初めて閉じた場合の時間取得
+        if (!_leftClosingDate && face.leftEyeClosed) {
+            self.leftClosingDate = [NSDate date];
         }
         
-        if (face.rightEyeClosed)  {
-            self.rightProgressProgress += kPoint;
-            
+        if (!_rightClosingDate && face.rightEyeClosed) {
+            self.rightClosingDate = [NSDate date];
         }
         
+        //長めに目を閉じた場合
         if (face.leftEyeClosed && face.rightEyeClosed) {
-            if (self.leftProgressProgress >= kLongCloseOmomi && self.rightProgressProgress >= kLongCloseOmomi) {
-                NSLog(@"目長く閉じる検出leftProgressProgress %f",self.leftProgressProgress);
-                NSLog(@"目長く閉じる検出rightProgressProgress %f",self.rightProgressProgress);
+            if (([self.leftClosingDate compare:[NSDate dateWithTimeIntervalSinceNow:-kLongCloseSecond]] == NSOrderedAscending ) && ([self.rightClosingDate compare:[NSDate dateWithTimeIntervalSinceNow:-kLongCloseSecond]] == NSOrderedAscending )) {
+                NSLog(@"%s%d",__func__,__LINE__);
+
+//                NSLog(@"目長く閉じる検出leftProgressProgress %f",self.leftProgressProgress);
+//                NSLog(@"目長く閉じる検出rightProgressProgress %f",self.rightProgressProgress);
                 
-                //                self.closeFlg = true;
                 [self reset];
                 [_winkDelegate WinkLongClose];
-                break;
-            } else {
-                self.leftProgressProgress += kPoint;
-                self.rightProgressProgress += kPoint;
                 break;
             }
         }
         
-        if (self.leftProgressProgress >= kCloseOmomi && self.rightProgressProgress >= kCloseOmomi) {
+        //短めに目を閉じた場合
+        if (([self.leftClosingDate compare:[NSDate dateWithTimeIntervalSinceNow:-kCloseSecond]] == NSOrderedAscending ) && ([self.rightClosingDate compare:[NSDate dateWithTimeIntervalSinceNow:-kCloseSecond]] == NSOrderedAscending )) {
             //時間が過ぎているので、これはアクションを行いたいという認識とする
-            
+            NSLog(@"%s%d",__func__,__LINE__);
+
             if (!face.leftEyeClosed && !face.rightEyeClosed) {
                 //どっちも閉じていない場合
-                NSLog(@"目短く閉じる検出leftProgressProgress %f",self.leftProgressProgress);
-                NSLog(@"目短く閉じる検出rightProgressProgress %f",self.rightProgressProgress);//                self.closeFlg = true
+//                NSLog(@"目短く閉じる検出leftProgressProgress %f",self.leftProgressProgress);
                 [self reset];
                 [_winkDelegate WinkClose];
                 break;
@@ -104,23 +97,29 @@ const float kPoint = 0.05f;
             
         }
         
-        if(!face.rightEyeClosed && self.leftProgressProgress >= kCloseOmomi && self.rightProgressProgress == 0.0f)
+        //片目を閉じた場合
+        
+        //右目閉じ&左目オープン&右目閉じ時間が閾値を超えている場合
+        if(face.rightEyeClosed && !face.leftEyeClosed && ([self.rightClosingDate compare:[NSDate dateWithTimeIntervalSinceNow:-kWinkSecond]] == NSOrderedAscending ))
         {
-            if ([_winkDelegate respondsToSelector:@selector(WinkRightClose)]) {
-                [_winkDelegate WinkRightClose];
-                break;
-            }
-            
-            
-        }
-        else if(!face.leftEyeClosed && self.rightProgressProgress >= kCloseOmomi && self.leftProgressProgress == 0.0f) {
-            //メソッドが存在する場合のみ
+            NSLog(@"%s%d",__func__,__LINE__);
+
             if ([_winkDelegate respondsToSelector:@selector(WinkLeftClose)]) {
                 [_winkDelegate WinkLeftClose];
                 break;
             }
             
             
+        }
+        //左目閉じ&右目オープン&左目閉じ時間が閾値を超えている場合
+        else if(face.leftEyeClosed && !face.rightEyeClosed && ([self.rightClosingDate compare:[NSDate dateWithTimeIntervalSinceNow:-kWinkSecond]] == NSOrderedAscending )) {
+            //メソッドが存在する場合のみ
+            NSLog(@"%s%d",__func__,__LINE__);
+
+            if ([_winkDelegate respondsToSelector:@selector(WinkRightClose)]) {
+                [_winkDelegate WinkRightClose];
+                break;
+            }
             
         }
         
@@ -132,21 +131,16 @@ const float kPoint = 0.05f;
         }
 
         
-        
-        
         break;
-        //            winkDelegate?.WinkLeftCloseWithPoint!(self.leftProgressProgress)
-        //            winkDelegate?.WinkRightCloseWithPoint!(self.rightProgressProgress)
         
     }
-    //    dispatch_semaphore_signal(semaphore);
     
     
 }
 
 -(void)reset {
-    self.leftProgressProgress = 0.0f;
-    self.rightProgressProgress = 0.0f;
+    self.leftClosingDate = nil;
+    self.rightClosingDate = nil;
 }
 
 @end
