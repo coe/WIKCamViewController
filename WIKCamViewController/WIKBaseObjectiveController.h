@@ -19,8 +19,8 @@
 -(void)WinkRightClose;
 -(void)WinkSmile;
 
--(void)WinkLeftCloseWithPoint:(float)point;
--(void)WinkRightCloseWithPoint:(float)point;
+//-(void)WinkLeftCloseWithPoint:(float)point;
+//-(void)WinkRightCloseWithPoint:(float)point;
 
 @end
 
