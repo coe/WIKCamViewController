@@ -18,6 +18,7 @@
 {
     NSLog(@"%s%d",__FUNCTION__,__LINE__);
     [super viewDidLoad];
+    self.delegate = self;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
