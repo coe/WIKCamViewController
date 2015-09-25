@@ -45,7 +45,7 @@ const NSTimeInterval kWinkSecond = 0.1f;
     
     for (CIFaceFeature* face in features) {
         
-        NSLog(@"%s%d",__func__,__LINE__);
+//        NSLog(@"%s%d",__func__,__LINE__);
         
         if(!_isWinkFlameIn) {
             _isWinkFlameIn = true;
