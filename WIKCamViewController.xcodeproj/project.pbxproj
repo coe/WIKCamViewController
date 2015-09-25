@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE46A7A41BB4E50000DE5AC7 /* WIKBaseObjectiveController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE46A7A31BB4E50000DE5AC7 /* WIKBaseObjectiveController.m */; settings = {ASSET_TAGS = (); }; };
+		CE46A7A51BB4E80000DE5AC7 /* WIKBaseObjectiveController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE46A7A21BB4E50000DE5AC7 /* WIKBaseObjectiveController.h */; };
 		CE7F51761B9992B3006A8A9E /* WIKCamViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE7F51751B9992B3006A8A9E /* WIKCamViewController.h */; };
 		CE7F51781B9992B3006A8A9E /* WIKCamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7F51771B9992B3006A8A9E /* WIKCamViewController.m */; };
 		CE7F517E1B9992B3006A8A9E /* libWIKCamViewController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7F51721B9992B3006A8A9E /* libWIKCamViewController.a */; };
@@ -31,6 +33,7 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				CE46A7A51BB4E80000DE5AC7 /* WIKBaseObjectiveController.h in CopyFiles */,
 				CEFBDEAD1BA25F5600C61831 /* SquareCamViewController.h in CopyFiles */,
 				CE7F51761B9992B3006A8A9E /* WIKCamViewController.h in CopyFiles */,
 			);
@@ -39,6 +42,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		CE46A7A21BB4E50000DE5AC7 /* WIKBaseObjectiveController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WIKBaseObjectiveController.h; sourceTree = "<group>"; };
+		CE46A7A31BB4E50000DE5AC7 /* WIKBaseObjectiveController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WIKBaseObjectiveController.m; sourceTree = "<group>"; };
 		CE7F51721B9992B3006A8A9E /* libWIKCamViewController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libWIKCamViewController.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE7F51751B9992B3006A8A9E /* WIKCamViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WIKCamViewController.h; sourceTree = "<group>"; };
 		CE7F51771B9992B3006A8A9E /* WIKCamViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WIKCamViewController.m; sourceTree = "<group>"; };
@@ -92,6 +97,8 @@
 				CE7F51BB1B9997F6006A8A9E /* SquareCamViewController.m */,
 				CE7F51751B9992B3006A8A9E /* WIKCamViewController.h */,
 				CE7F51771B9992B3006A8A9E /* WIKCamViewController.m */,
+				CE46A7A21BB4E50000DE5AC7 /* WIKBaseObjectiveController.h */,
+				CE46A7A31BB4E50000DE5AC7 /* WIKBaseObjectiveController.m */,
 			);
 			path = WIKCamViewController;
 			sourceTree = "<group>";
@@ -203,6 +210,7 @@
 			files = (
 				CE7F51781B9992B3006A8A9E /* WIKCamViewController.m in Sources */,
 				CE7F51BC1B9997F6006A8A9E /* SquareCamViewController.m in Sources */,
+				CE46A7A41BB4E50000DE5AC7 /* WIKBaseObjectiveController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
