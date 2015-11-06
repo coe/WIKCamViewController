@@ -8,7 +8,7 @@
 
 #import "WIKCamViewController.h"
 
-@interface WIKCamViewController ()
+@interface WIKCamViewController ()<WIKCamDelegate>
 @property BOOL isClose;
 @end
 
@@ -104,6 +104,12 @@
 - (void)teardownAVCapture
 {
     [previewLayer removeFromSuperlayer];
+}
+
+#pragma mark - WIKCamDelegate
+-(void)WIKCamDelegateCaptureOutput:(NSArray*)features {
+    [NSException raise:NSInternalInconsistencyException
+                format:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)];
 }
 
 #pragma mark -

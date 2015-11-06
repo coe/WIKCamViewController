@@ -10,22 +10,53 @@
 
 @protocol WIKFacialRecognitionControllerDelegate <NSObject>
 
+/**
+ * fire when eyes closed.
+ */
 -(void)WinkClose;
+
+/**
+ * fire when eyes long closed.
+ */
 -(void)WinkLongClose;
+
+/**
+ * fire when flame in.
+ */
 -(void)WinkFlameIn;
+
+/**
+ * fire when flame out.
+ */
 -(void)WinkFlameOut;
 
+/**
+ * fire when left eyes closed.
+ */
 -(void)WinkLeftClose;
--(void)WinkRightClose;
--(void)WinkSmile;
 
+/**
+ * fire when right eyes closed.
+ */
+-(void)WinkRightClose;
+
+/**
+ * fire when smiled.
+ */
+-(void)WinkSmile;
 
 @end
 
 @interface WIKFacialRecognitionController : WIKCamViewController<WIKCamDelegate>
 
+/**
+ * reset State.
+ */
 -(void)reset;
 
+/**
+ * WIKFacialRecognitionControllerDelegate delegate.
+ */
 @property(weak)id<WIKFacialRecognitionControllerDelegate> winkDelegate;
 
 @end

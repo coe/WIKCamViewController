@@ -300,7 +300,17 @@ bail:
 // utility routing used during image capture to set up capture orientation
 - (AVCaptureVideoOrientation)avOrientationForDeviceOrientation:(UIDeviceOrientation)deviceOrientation
 {
-	AVCaptureVideoOrientation result = deviceOrientation;
+	AVCaptureVideoOrientation result = AVCaptureVideoOrientationPortrait;
+    switch (deviceOrientation) {
+        case UIDeviceOrientationPortrait:
+            result = AVCaptureVideoOrientationPortrait;
+            break;
+        case UIDeviceOrientationPortraitUpsideDown:
+            result = AVCaptureVideoOrientationPortraitUpsideDown;
+            break;
+        default:
+            break;
+    }
 	if ( deviceOrientation == UIDeviceOrientationLandscapeLeft )
 		result = AVCaptureVideoOrientationLandscapeRight;
 	else if ( deviceOrientation == UIDeviceOrientationLandscapeRight )
