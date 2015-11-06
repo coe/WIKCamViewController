@@ -107,7 +107,12 @@
 }
 
 #pragma mark - WIKCamDelegate
--(void)WIKCamDelegateCaptureOutput:(NSArray*)features {
+/**
+ * get CIFaceFeature Array
+ * @param features CIFaceFeature Array
+ */
+-(void)WIKCamDelegateCaptureOutput:(NSArray<CIFaceFeature *>*)features
+{
     [NSException raise:NSInternalInconsistencyException
                 format:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)];
 }

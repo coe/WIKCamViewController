@@ -128,6 +128,9 @@ const NSTimeInterval kWinkSecond = 0.1f;
     
 }
 
+/**
+ * reset State.
+ */
 -(void)reset {
     self.leftClosingDate = nil;
     self.rightClosingDate = nil;
