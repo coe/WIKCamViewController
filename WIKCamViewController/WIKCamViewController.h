@@ -15,16 +15,6 @@
  @param features CIFaceFeature Array
  */
 -(void)WIKCamDelegateCaptureOutput:(NSArray*)features;
-//-(void)WinkClose;
-//-(void)WinkLongClose;
-//-(void)WinkFlameIn;
-//-(void)WinkFlameOut;
-//-(void)WinkLeftClose;
-//-(void)WinkRightClose;
-//-(void)WinkSmile;
-//-(void)WinkLeftCloseWithPoint:(float)point;
-//-(void)WinkRightCloseWithPoint:(float)point;
-
 
 @end
 
