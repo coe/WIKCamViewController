@@ -17,16 +17,17 @@ Facial recognition Controller for iOS
 - WIKCamViewController.xcodeprojをあなたのプロジェクトに追加
 - (for swift) Bridging-Header.hに`#import <WIKCamViewController/WIKFacialRecognition.h>`を追加
 - 以下のフレームワークを導入する
-ImageIO.framework
-QuartzCore.framework
-CoreMedia.framework
-CoreGraphics.framework
-AssetsLibrary.framework
-CoreImage.framework
-AVFoundation.framework
-CoreVideo.framework
-UIKit.framework
-Foundation.framework
+
+    ImageIO.framework
+    QuartzCore.framework
+    CoreMedia.framework
+    CoreGraphics.framework
+    AssetsLibrary.framework
+    CoreImage.framework
+    AVFoundation.framework
+    CoreVideo.framework
+    UIKit.framework
+    Foundation.framework
 
 
 ## How to use
