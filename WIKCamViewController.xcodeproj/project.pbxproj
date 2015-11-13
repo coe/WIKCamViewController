@@ -13,6 +13,7 @@
 		CE7F51781B9992B3006A8A9E /* WIKCamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7F51771B9992B3006A8A9E /* WIKCamViewController.m */; };
 		CE7F517E1B9992B3006A8A9E /* libWIKCamViewController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7F51721B9992B3006A8A9E /* libWIKCamViewController.a */; };
 		CE7F51BC1B9997F6006A8A9E /* SquareCamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7F51BB1B9997F6006A8A9E /* SquareCamViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CE9D7C2E1BF5BD3500C483CB /* WIKFacialRecognition.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE9D7C2C1BF5BCAD00C483CB /* WIKFacialRecognition.h */; };
 		CEFBDEAD1BA25F5600C61831 /* SquareCamViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE7F51BA1B9997F6006A8A9E /* SquareCamViewController.h */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +34,7 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				CE9D7C2E1BF5BD3500C483CB /* WIKFacialRecognition.h in CopyFiles */,
 				CE46A7A51BB4E80000DE5AC7 /* WIKFacialRecognitionController.h in CopyFiles */,
 				CEFBDEAD1BA25F5600C61831 /* SquareCamViewController.h in CopyFiles */,
 				CE7F51761B9992B3006A8A9E /* WIKCamViewController.h in CopyFiles */,
@@ -51,6 +53,7 @@
 		CE7F51831B9992B3006A8A9E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE7F51BA1B9997F6006A8A9E /* SquareCamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SquareCamViewController.h; sourceTree = "<group>"; };
 		CE7F51BB1B9997F6006A8A9E /* SquareCamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SquareCamViewController.m; sourceTree = "<group>"; };
+		CE9D7C2C1BF5BCAD00C483CB /* WIKFacialRecognition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WIKFacialRecognition.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +102,7 @@
 				CE7F51771B9992B3006A8A9E /* WIKCamViewController.m */,
 				CE46A7A21BB4E50000DE5AC7 /* WIKFacialRecognitionController.h */,
 				CE46A7A31BB4E50000DE5AC7 /* WIKFacialRecognitionController.m */,
+				CE9D7C2C1BF5BCAD00C483CB /* WIKFacialRecognition.h */,
 			);
 			path = WIKCamViewController;
 			sourceTree = "<group>";
