@@ -34,3 +34,5 @@ Facial recognition Controller for iOS
 - `WIKFacialRecognitionController` を顔認識を行いたいUIViewControllerで継承
 - `self.winkDelegate = self` を行う
 - `WIKFacialRecognitionControllerDelegate`のメソッドを実装
+
+# sponsored by  [R-Learning](http://www.r-learning.co.jp "R-Learning")
